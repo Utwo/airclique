@@ -1,11 +1,18 @@
 'use strict'
-
+const User = use('App/Model/User')
 const Factory = use('Factory')
+const Database = use('Database')
 
 class UserSeeder {
 
   * run () {
-    // run model/database factories here
+    yield Database.truncate('users')
+
+    yield User.create({
+      'email': 'user1@example.com',
+      'name': 'user1',
+      'password': '123456'
+    })
   }
 
 }

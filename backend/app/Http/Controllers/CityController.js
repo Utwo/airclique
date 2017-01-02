@@ -6,19 +6,7 @@ class CityController {
     //
   }
 
-  * create(request, response) {
-    //
-  }
-
   * store(request, response) {
-    //
-  }
-
-  * show(request, response) {
-    //
-  }
-
-  * edit(request, response) {
     //
   }
 
