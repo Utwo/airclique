@@ -82,7 +82,7 @@ module.exports = {
     | true. Consider this as a way of saying thanks to us.
     |
     */
-    setPoweredBy: true,
+    setPoweredBy: false,
 
     /*
     |--------------------------------------------------------------------------
@@ -117,7 +117,7 @@ module.exports = {
     | IoC container. Setting it to false will disable this feature.
     |
     */
-    injectServices: true
+    injectServices: false
   },
 
   static: {
