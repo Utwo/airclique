@@ -7,11 +7,11 @@ class FlightsTableSchema extends Schema {
   up () {
     this.create('flights', (table) => {
       table.increments()
-      table.enum('business', 'economy', 'first')
+      table.enu('class',['business', 'economy', 'first'])
       table.integer('seats_available').unsigned()
       table.float('price').unsigned()
-      table.timestamp('departure_time')
-      table.timestamp('arrival_time')
+      table.dateTime('departure_time')
+      table.dateTime('arrival_time')
       table.timestamps()
     })
   }
