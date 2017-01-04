@@ -2,10 +2,18 @@
   <div>
     <h3> Login</h3>
     <form>
-      Username <input type="text" name="username"><br>
-      Password: <input type="text" name="password"><br>
-      <input type="submit" value="Login">
+      {{errorMessage}}
+      Username: <input type='text' [(ngModel)]='username' [ngModelOptions]="{standalone: true}"><br>
+      Password: <input type='password' [(ngModel)]='password' [ngModelOptions]="{standalone: true}"><br>
+      <button (click)="login()">  <img [src]='imageURL'
+                                       [title]="imageTitle"
+                                       [style.width.px]="imageWidth"
+                                       [style.height.px]="imageHeight"/>
+      </button>
     </form>
   </div>
-  <img style="height:200px;width:200px" src="./assets/images/login.png"/>
+
+  <!--
+       <p>I'm not a user... </p> <button><a [routerLink]="['createAccount']">Create account!</a></button>
+  -->
 </div>
