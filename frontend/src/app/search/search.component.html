@@ -1,3 +1,15 @@
-<p>
-  search works!
-</p>
+
+<div>
+  <h3> Please complete the following information: </h3>
+  <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
+    <option *ngFor='let city of cities_departure' [ngValue]="city">{{city}}</option>
+  </select>
+  <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
+    <option *ngFor='let city of cities_destination' [ngValue]="city">{{city}}</option>
+  </select>
+  <input type="date" name="Date" (input)="onChangeDate($event.target.value)">
+  <p> Nr of passengers: </p>
+  <input type="number" name="nr__of_passengers">
+  <p><a href="">Conditii de rezervare</a></p>
+  <button (click)="searchFlight()">Submit</button>
+</div>
