@@ -1,7 +1,7 @@
 'use strict'
 const Hash = use('Hash')
 
-const User = exports = module.exports = {}
+const User = module.exports = {}
 
 User.encryptPassword = function * (next) {
   this.password = yield Hash.make(this.password)
