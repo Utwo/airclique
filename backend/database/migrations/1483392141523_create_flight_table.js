@@ -13,6 +13,12 @@ class FlightsTableSchema extends Schema {
       table.dateTime('departure_time')
       table.dateTime('arrival_time')
       table.timestamps()
+
+      table.integer('city_departure_id').unsigned()
+      table.integer('city_destination_id').unsigned()
+
+      table.foreign('city_departure_id').references('cities.id')
+      table.foreign('city_destination_id').references('cities.id')
     })
   }
 
