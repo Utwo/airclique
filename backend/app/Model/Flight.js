@@ -4,15 +4,15 @@ const Lucid = use('Lucid')
 
 class Flight extends Lucid {
 
-  User () {
+  User() {
     return this.belongsToMany('App/Model/User')
   }
 
-  DepartureCity () {
+  DepartureCity() {
     return this.belongsTo('App/Model/City', 'city_departure_id')
   }
 
-  DestinationCity () {
+  DestinationCity() {
     return this.belongsTo('App/Model/City', 'city_destination_id')
   }
 }

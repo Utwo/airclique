@@ -1,25 +1,18 @@
 'use strict'
 
-/*
-|--------------------------------------------------------------------------
-| Database Seeder
-|--------------------------------------------------------------------------
-| Database Seeder can be used to seed dummy data to your application
-| database. Here you can make use of Factories to create records.
-|
-| make use of Ace to generate a new seed
-|   ./ace make:seed [name]
-|
-*/
-
-// const Factory = use('Factory')
+const UserSeed = require('./User');
+const CitySeed = require('./City');
+const FlightSeed = require('./Flight');
+const FlightUserSeed = require('./FlightUser');
 
 class DatabaseSeeder {
 
   * run () {
-    // yield Factory.model('App/Model/User').create(5)
+    yield new UserSeed().go();
+    yield new CitySeed().go();
+    yield new FlightSeed().go();
+    yield new FlightUserSeed().go();
   }
-
 }
 
 module.exports = DatabaseSeeder
