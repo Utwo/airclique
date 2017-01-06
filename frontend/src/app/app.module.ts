@@ -8,13 +8,17 @@ import {routing} from './app.routing';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { FlightsListComponent } from './flights-list/flights-list.component';
+import { MyTicketsComponent } from './my-tickets/my-tickets.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SearchComponent,
-    FlightsListComponent
+    FlightsListComponent,
+    MyTicketsComponent,
+    AboutComponent
   ],
   imports: [
     routing,
