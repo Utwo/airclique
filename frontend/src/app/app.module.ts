@@ -10,6 +10,7 @@ import { SearchComponent } from './search/search.component';
 import { FlightsListComponent } from './flights-list/flights-list.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { AboutComponent } from './about/about.component';
+import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AboutComponent } from './about/about.component';
     SearchComponent,
     FlightsListComponent,
     MyTicketsComponent,
-    AboutComponent
+    AboutComponent,
+    AdditionalDetailsComponent
   ],
   imports: [
     routing,
