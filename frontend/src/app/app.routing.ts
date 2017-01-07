@@ -5,6 +5,8 @@ import {SearchComponent} from './search/search.component';
 import {FlightsListComponent} from "./flights-list/flights-list.component"
 import {MyTicketsComponent} from "./my-tickets/my-tickets.component"
 import {AdditionalDetailsComponent} from "./additional-details/additional-details.component"
+import {LoginComponent} from './login/login.component';
+import {AboutComponent} from './about/about.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -12,6 +14,8 @@ const appRoutes: Routes = [
   {path: 'showAll', component: FlightsListComponent},
   {path: 'myTickets', component: MyTicketsComponent},
   {path: 'more-details', component: AdditionalDetailsComponent}
+   {path: 'login', component: LoginComponent},
+   {path: 'about', component: AboutComponent}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

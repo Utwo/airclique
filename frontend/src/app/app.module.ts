@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import {routing} from './app.routing';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
+import { LoginComponent } from './login/login.component';
 import { FlightsListComponent } from './flights-list/flights-list.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { AboutComponent } from './about/about.component';
@@ -16,6 +17,7 @@ import { AdditionalDetailsComponent } from './additional-details/additional-deta
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
     SearchComponent,
     FlightsListComponent,
     MyTicketsComponent,
