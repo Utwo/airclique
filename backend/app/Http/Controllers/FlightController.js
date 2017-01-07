@@ -1,5 +1,6 @@
 'use strict'
 const Flight = use('App/Model/Flight')
+const Database = use('Database')
 const User = use('App/Model/User')
 const City = use('App/Model/City')
 
@@ -28,11 +29,15 @@ class FlightController {
 
     flights = yield flights.fetch()
 
+    let result_flights = [];
     for (let flight of flights) {
-      const departure = yield City.find(flight.city_departure_id)
-      const destination = yield City.find(flight.city_destination_id)
-      flight.departure_city = departure
-      flight.destination_city = destination
+      flight.departure_city = yield City.find(flight.city_departure_id)
+      flight.destination_city = yield City.find(flight.city_destination_id)
+      // remaining seats
+      const sum = yield Database.from('flight_user').where({flight_id: flight.id}).sum('seats as seats')
+      flight.remaining_seats = flight.seats_available - sum[0].seats;
+      
+      result_flights.push(flight);
     }
 
     response.json(flights)
@@ -41,22 +46,25 @@ class FlightController {
   * flight(request, response) {
     const id = request.param('id')
     const flight = yield Flight.find(id)
-    const departure = yield City.find(flight.city_departure_id)
-    const destination = yield City.find(flight.city_destination_id)
-    flight.departure_city = departure
-    flight.destination_city = destination
+
+    flight.departure_city = yield City.find(flight.city_departure_id)
+    flight.destination_city = yield City.find(flight.city_destination_id)
+
+    const sum = yield Database.from('flight_user').where({flight_id: flight.id}).sum('seats as seats')
+    flight.remaining_seats = flight.seats_available - sum[0].seats;
+
     response.json(flight)
   }
 
   * store(request, response) {
     const user = yield request.auth.getUser()
-    if(!user.is_admin){
+    if (!user.is_admin) {
       response.unauthorized({message: "You are not authorized to use this route"})
       return
     }
 
-    const departure = yield City.findBy('code',request.input('departure_code'))
-    const destination = yield City.findBy('code',request.input('arrival_code'))
+    const departure = yield City.findBy('code', request.input('departure_code'))
+    const destination = yield City.findBy('code', request.input('arrival_code'))
 
     const flight = new Flight({
       'class': request.input('class'),
@@ -78,14 +86,14 @@ class FlightController {
 
   * destroy(request, response) {
     const user = yield request.auth.getUser()
-    if(!user.is_admin){
+    if (!user.is_admin) {
       response.unauthorized({message: "You are not authorized to use this route"})
       return
     }
 
     const flight = yield Flight.find(request.param('id'))
     yield flight.delete()
-    response.json({message:'The flight was cancelled'})
+    response.json({message: 'The flight was cancelled'})
   }
 
 }
