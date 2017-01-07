@@ -13,9 +13,9 @@ const appRoutes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'showAll', component: FlightsListComponent},
   {path: 'myTickets', component: MyTicketsComponent},
-  {path: 'more-details', component: AdditionalDetailsComponent}
-   {path: 'login', component: LoginComponent},
-   {path: 'about', component: AboutComponent}
+  {path: 'more-details', component: AdditionalDetailsComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'about', component: AboutComponent},
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

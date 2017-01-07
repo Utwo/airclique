@@ -11,23 +11,14 @@ export class LoginService {
   constructor(private state: StateService, private http: Http, private router: Router) {
   }
 
-  loginEmail(email) {
-    let body = JSON.stringify({email: email});
+  login(email,password) {
+    let body = JSON.stringify({email: email, password: password});
     let headers = new Headers({'Content-Type': 'application/json'});
 
-    return this.http.post(environment.URL_API + 'auth/login', body, {headers: headers})
+    return this.http.post(environment.URL_API + 'login', body, {headers: headers})
       .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  authEmail(token) {
-    this.http.post(environment.URL_API + 'auth/email-authenticate/' + token, '')
-      .map(res => res.json())
-      .subscribe(
-        (data) => this.state.storeState(data['token'], data['user']),
-        (error) => this.handleError(error),
-        () => this.router.navigate(['/projects'])
-      );
+      .do(data => {this.state.storeState(data['token'], data)})
+      .catch(error => this.handleError(error))
   }
 
   logout() {

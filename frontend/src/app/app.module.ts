@@ -12,6 +12,8 @@ import { FlightsListComponent } from './flights-list/flights-list.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { AboutComponent } from './about/about.component';
 import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
+import {LoginService} from './core/login.service';
+import {StateService} from './shared/state.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,10 @@ import { AdditionalDetailsComponent } from './additional-details/additional-deta
     FormsModule,
     HttpModule,
   ],
-  providers: [],
+  providers: [
+    LoginService,
+    StateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

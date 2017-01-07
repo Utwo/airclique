@@ -29,6 +29,6 @@ export class StateService {
   }
 
   isLoggedIn() {
-    return !!localStorage['token'];
+    return localStorage['token'];
   }
 }
