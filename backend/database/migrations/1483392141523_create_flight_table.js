@@ -17,8 +17,8 @@ class FlightsTableSchema extends Schema {
       table.integer('city_departure_id').unsigned()
       table.integer('city_destination_id').unsigned()
 
-      table.foreign('city_departure_id').references('cities.id')
-      table.foreign('city_destination_id').references('cities.id')
+      table.foreign('city_departure_id').references('cities.id').onDelete('cascade')
+      table.foreign('city_destination_id').references('cities.id').onDelete('cascade')
     })
   }
 

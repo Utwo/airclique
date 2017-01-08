@@ -12,14 +12,30 @@ class UserSeeder {
     yield Database.table('users').delete()
 
     yield User.create({
-      'email': 'user1@example.com',
-      'name': 'user1',
+      'email': 'eliza@email.com',
+      'name': 'eliza',
       'password': '123456'
     })
     yield User.create({
-      'email': 'user2@example.com',
-      'name': 'user2',
+      'email': 'razvan@email.com',
+      'name': 'razvan',
       'password': '123456'
+    })
+    yield User.create({
+      'email': 'mihai@email.com',
+      'name': 'mihai',
+      'password': '123456'
+    })
+    yield User.create({
+      'email': 'oana@email.com',
+      'name': 'oana',
+      'password': '123456'
+    })
+    yield User.create({
+      'email': 'admin@email.com',
+      'name': 'admin',
+      'password': '123456',
+      'is_admin': true
     })
   }
 }

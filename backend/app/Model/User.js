@@ -15,7 +15,7 @@ class User extends Lucid {
   }
 
   Flight() {
-    return this.belongsToMany('App/Model/Flight')
+    return this.belongsToMany('App/Model/Flight').withPivot('seats')
   }
 }
 
