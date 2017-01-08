@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -31,13 +30,10 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    this.loginService.login(this.username,this.password)
+    this.loginService.login(this.username, this.password)
       .subscribe(
         data => this.router.navigate(['']),
-        err  => this.errorMessage = "There was an error when logging in"
-      )
-    //else
-    //errorMessage = 'Username or password is incorrect!'
+        err  => this.errorMessage = 'There was an error when logging in'
+      );
   }
-
 }
