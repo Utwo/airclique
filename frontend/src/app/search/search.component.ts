@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  sursa: string = '';
+  destinatie: string = '';
 
   cities_departure: string[] = ['Cluj','Bucuresti', 'Timisoara'];
   cities_destination: string[] = ['Botosani','Harghita', 'Constanta'];
