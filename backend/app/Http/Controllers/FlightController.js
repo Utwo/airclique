@@ -31,28 +31,23 @@ class FlightController {
 
     let result_flights = [];
     for (let flight of flights) {
-      flight.departure_city = yield City.find(flight.city_departure_id)
-      flight.destination_city = yield City.find(flight.city_destination_id)
-      // remaining seats
-      const sum = yield Database.from('flight_user').where({flight_id: flight.id}).sum('seats as seats')
-      flight.remaining_seats = flight.seats_available - sum[0].seats;
-      
+      flight = yield Flight.query().remainingSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
+      yield flight.remaining();
+      if(request.params('seats')){
+        if(request.input('seats') > flight.remaining_seats){
+          continue
+        }
+      }
       result_flights.push(flight);
     }
 
-    response.json(flights)
+    response.json(result_flights)
   }
 
   * flight(request, response) {
     const id = request.param('id')
-    const flight = yield Flight.find(id)
-
-    flight.departure_city = yield City.find(flight.city_departure_id)
-    flight.destination_city = yield City.find(flight.city_destination_id)
-
-    const sum = yield Database.from('flight_user').where({flight_id: flight.id}).sum('seats as seats')
-    flight.remaining_seats = flight.seats_available - sum[0].seats;
-
+    const flight = yield Flight.query().remainingSeats().with('DepartureCity', 'DestinationCity').where('id', id).first()
+    yield flight.remaining();
     response.json(flight)
   }
 
@@ -61,27 +56,19 @@ class FlightController {
     if (!user.is_admin) {
       response.unauthorized({message: "You are not authorized to use this route"})
       return
-    }
+    } // todo middleware
 
-    const departure = yield City.findBy('code', request.input('departure_code'))
-    const destination = yield City.findBy('code', request.input('arrival_code'))
-
-    const flight = new Flight({
+    const flight = Flight.create({
       'class': request.input('class'),
       'seats_available': request.input('seats'),
       'price': request.input('price'),
       'departure_time': new Date(request.input('departure_time')),
       'arrival_time': new Date(request.input('arrival_time')),
+      'city_destination_id': request.input('departure_id'),
+      'city_departure_id': request.input('arrival_id'),
     })
 
-    yield departure.DepartureFlight().save(flight)
-    yield destination.DestinationFlight().save(flight)
-
     response.json(flight)
-  }
-
-  * update(request, response) {
-    //
   }
 
   * destroy(request, response) {
@@ -89,7 +76,7 @@ class FlightController {
     if (!user.is_admin) {
       response.unauthorized({message: "You are not authorized to use this route"})
       return
-    }
+    } // todo middleware
 
     const flight = yield Flight.find(request.param('id'))
     yield flight.delete()
