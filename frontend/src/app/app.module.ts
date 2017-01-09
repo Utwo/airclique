@@ -14,6 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
 import {LoginService} from './core/login.service';
 import {StateService} from './shared/state.service';
+import {MyTicketsService} from './my-tickets/my-tickets.service';
 import {AllFlightsService} from './flights-list/all_flights.service';
 
 @NgModule({
@@ -37,6 +38,7 @@ import {AllFlightsService} from './flights-list/all_flights.service';
     LoginService,
     StateService,
     AllFlightsService,
+    MyTicketsService
   ],
   bootstrap: [AppComponent]
 })

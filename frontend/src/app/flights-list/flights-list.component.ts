@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IFlight} from "./flight"
 import {AllFlightsService} from './all_flights.service';
+import {IFlight} from '../shared/flight';
 
 @Component({
   selector: 'app-flights-list',
