@@ -11,6 +11,7 @@
         <!--astea sa fie in partea dreapta-->
         <li *ngIf="state.isLoggedIn()"><a href=" " [routerLink]="['myTickets']">My Tickets</a></li>
         <li *ngIf="!state.isLoggedIn()"><a href=" " [routerLink]="['login']">Login</a></li>
+        <li *ngIf="state.isLoggedIn()">{{userName}}</li>
         <li *ngIf="state.isLoggedIn()"><a href="" (click)="logout()">Logout</a></li>
       </ul>
     </div>
