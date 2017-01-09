@@ -2,14 +2,14 @@
   <div>
     <h3> Login</h3>
     <form>
-      {{errorMessage}}
-      Username: <input type='text' [(ngModel)]='username' [ngModelOptions]="{standalone: true}"><br>
+      Email: <input type='text' [(ngModel)]='username' [ngModelOptions]="{standalone: true}"><br>
       Password: <input type='password' [(ngModel)]='password' [ngModelOptions]="{standalone: true}"><br>
       <button (click)="login()">  <img [src]='imageURL'
                                        [title]="imageTitle"
                                        [style.width.px]="imageWidth"
                                        [style.height.px]="imageHeight"/>
       </button>
+      <i *ngIf = 'errorMessage'> {{errorMessage}}</i>
     </form>
   </div>
 

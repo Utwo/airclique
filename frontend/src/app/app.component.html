@@ -7,9 +7,12 @@
         <li><a [routerLink]="['search']">Search Flight</a></li>
         <li><a [routerLink]="['showAll']">Check Next Flights</a></li>
         <li><a [routerLink]="['more-details']">Additional information</a></li>
-        <!--astea sa fie in partea dreapta-->
-        <li><a [routerLink]="['login']">Login</a></li>
         <li><a [routerLink]="['about']">About</a></li>
+        <!--astea sa fie in partea dreapta-->
+        <li *ngIf="state.isLoggedIn()"><a href=" " [routerLink]="['myTickets']">My Tickets</a></li>
+        <li *ngIf="!state.isLoggedIn()"><a href=" " [routerLink]="['login']">Login</a></li>
+        <li *ngIf="state.isLoggedIn()">{{userName}}</li>
+        <li *ngIf="state.isLoggedIn()"><a href="" (click)="logout()">Logout</a></li>
       </ul>
     </div>
   </nav>
