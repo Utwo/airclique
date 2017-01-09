@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IFlight} from "./flight"
+import {IFlight} from './flight';
 
 @Component({
   selector: 'app-flights-list',
@@ -8,7 +8,7 @@ import {IFlight} from "./flight"
 })
 export class FlightsListComponent implements OnInit {
 
-  flights : IFlight[];
+  flights: IFlight[];
 
   constructor() { }
 
