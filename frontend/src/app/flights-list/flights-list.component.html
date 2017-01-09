@@ -9,16 +9,22 @@
         <th> Departure City</th>
         <th> Arrival City </th>
         <th> Departure time</th>
+        <th> Arrival time</th>
         <th> Available places </th>
+        <th> Price</th>
+        <th> Class</th>
       </tr>
     </thead>
     <tbody *ngIf='flights && flights.length'>
       <tr *ngFor='let flight of flights'>
-        <td>{{ flight.flightId }}</td>
-        <td>{{ flight.departure_city }}</td>
-        <td>{{ flight.arrival_city }}</td>
+        <td>{{ flight.id }}</td>
+        <td>{{ flight.city_departure_id }}</td>
+        <td>{{ flight. city_destination_id }}</td>
         <td>{{ flight.departure_time }}</td>
-        <td>{{ flight.available_places }}</td>
+        <td>{{ flight.arrival_time }}</td>
+        <td>{{ flight.seats_available }}</td>
+        <td>{{ flight.price }}</td>
+        <td>{{ flight.class }}</td>
         <td> <button> Book </button></td>
       </tr>
     </tbody>

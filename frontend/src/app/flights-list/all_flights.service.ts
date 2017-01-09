@@ -9,16 +9,15 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class AllFlightsService {
 
-  constructor(private state: StateService, private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router) {
   }
 
   getAllFlights() {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.state.getToken()}
-      );
+    });
 
-    return this.http.post(environment.URL_API + 'flights', {headers: headers})
+    return this.http.get(environment.URL_API + 'flights', {headers: headers})
       .map(res => res.json())
       .catch(error => this.handleError(error))
   }
