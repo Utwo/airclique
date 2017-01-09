@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {IFlight} from '../flights-list/flight';
 import {MyTicketsService} from './my-tickets.service';
 import {StateService} from '../shared/state.service';
+import {IFlight} from '../shared/flight';
 
 @Component({
   selector: 'app-my-tickets',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IFlight} from './flight';
+import {IFlight} from '../shared/flight';
 
 @Component({
   selector: 'app-flights-list',
