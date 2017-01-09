@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private state: StateService, private http: Http, private router: Router) {
   }
 
-  login(email,password) {
+  login (email, password) {
     let body = JSON.stringify({email: email, password: password});
     let headers = new Headers({'Content-Type': 'application/json'});
 
