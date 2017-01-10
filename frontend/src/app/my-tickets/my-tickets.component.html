@@ -13,10 +13,10 @@
     </tr>
     </thead>
     <tbody *ngIf='flights && flights.length'>
-    <tr *ngFor='let flight of flights'>
+    <tr *ngFor='let flight of flightsList'>
       <td>{{ flight.id }}</td>
       <td>{{ flight.class }}</td>
-      <td>{{ flight.departure_time }}</td>
+      <td>{{ flight.departure_time}}</td>
       <td>{{ flight.arrival_time }}</td>
       <td>{{ flight.DepartureCity.name }}</td>
       <td>{{ flight.DestinationCity.name }}</td>
