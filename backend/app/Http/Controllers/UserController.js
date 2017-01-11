@@ -24,6 +24,7 @@ class UserController {
     const user = yield request.auth.getUser()
     const flight_id = request.input('flight_id')
     const seats = request.input('seats')
+
     const flight = yield Flight.find(flight_id)
     yield flight.User().attach([user.id], {seats})
     response.json({message: 'Flight ticket was acquired'})

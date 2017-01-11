@@ -3,6 +3,7 @@ const Flight = use('App/Model/Flight')
 const Database = use('Database')
 const User = use('App/Model/User')
 const City = use('App/Model/City')
+const Validator = use('Validator')
 
 class FlightController {
 
@@ -19,8 +20,6 @@ class FlightController {
           const departure_next = new Date(departure_day);
           departure_next.setDate(departure_day.getDate() + 1);
           flights.whereBetween(input, [departure_day, departure_next])
-        } else if (input === 'seats') {
-          // todo
         } else {
           flights.where(input, search_inputs[input])
         }
@@ -52,32 +51,20 @@ class FlightController {
   }
 
   * store(request, response) {
-    const user = yield request.auth.getUser()
-    if (!user.is_admin) {
-      response.unauthorized({message: "You are not authorized to use this route"})
+    const flightData = request.all()
+    const validation = yield Validator.validate(flightData, Flight.rules)
+
+    if (validation.fails()) {
+      response.json(validation.messages())
       return
-    } // todo middleware
+    }
 
-    const flight = Flight.create({
-      'class': request.input('class'),
-      'seats_available': request.input('seats'),
-      'price': request.input('price'),
-      'departure_time': new Date(request.input('departure_time')),
-      'arrival_time': new Date(request.input('arrival_time')),
-      'city_destination_id': request.input('departure_id'),
-      'city_departure_id': request.input('arrival_id'),
-    })
-
+    const flight = yield Flight.create(flightData)
+    console.log(flight)
     response.json(flight)
   }
 
   * destroy(request, response) {
-    const user = yield request.auth.getUser()
-    if (!user.is_admin) {
-      response.unauthorized({message: "You are not authorized to use this route"})
-      return
-    } // todo middleware
-
     const flight = yield Flight.find(request.param('id'))
     yield flight.delete()
     response.json({message: 'The flight was cancelled'})
