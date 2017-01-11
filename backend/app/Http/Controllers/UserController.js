@@ -23,9 +23,21 @@ class UserController {
   * buyTicket(request, response) {
     const user = yield request.auth.getUser()
     const flight_id = request.input('flight_id')
-    const seats = request.input('seats')
+    let seats = request.input('seats')
+    const now = new Date()
 
-    const flight = yield Flight.find(flight_id)
+    const flight = yield Flight.findOrFail(flight_id)
+    if(flight.departure_time <= now){
+      response.badRequest({message: 'Flight already departed'})
+      return
+    }
+
+    const my_flight = yield user.Flight().where('id', flight_id).first()
+    if(my_flight._pivot_seats){
+      seats = request.input('seats') + my_flight._pivot_seats
+      yield flight.User().detach([user.id])
+    }
+
     yield flight.User().attach([user.id], {seats})
     response.json({message: 'Flight ticket was acquired'})
   }

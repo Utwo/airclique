@@ -30,10 +30,10 @@ class FlightController {
 
     let result_flights = [];
     for (let flight of flights) {
-      flight = yield Flight.query().remainingSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
-      yield flight.remaining();
-      if(request.params('seats')){
-        if(request.input('seats') > flight.remaining_seats){
+      flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
+      flight.remaining_seats = flight.seats_available - flight.taken_seats
+      if (request.params('seats')) {
+        if (request.input('seats') > flight.remaining_seats) {
           continue
         }
       }
@@ -45,8 +45,9 @@ class FlightController {
 
   * flight(request, response) {
     const id = request.param('id')
-    const flight = yield Flight.query().remainingSeats().with('DepartureCity', 'DestinationCity').where('id', id).first()
-    yield flight.remaining();
+    const flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', id).first()
+    flight.remaining_seats = flight.seats_available - flight.taken_seats
+
     response.json(flight)
   }
 
@@ -60,14 +61,13 @@ class FlightController {
     }
 
     const flight = yield Flight.create(flightData)
-    console.log(flight)
     response.json(flight)
   }
 
   * destroy(request, response) {
     const flight = yield Flight.find(request.param('id'))
     yield flight.delete()
-    response.json({message: 'The flight was cancelled'})
+    response.json({ message: 'The flight was cancelled' })
   }
 
 }

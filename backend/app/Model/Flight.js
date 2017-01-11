@@ -9,8 +9,8 @@ class Flight extends Lucid {
     this.remaining_seats = this.seats_available - seats_taken[0].seats
   };
 
-  static scopeRemainingSeats (builder) {
-    builder.select('*').innerJoin('flight_user', 'flights.id', 'flight_user.flight_id').sum('flight_user.seats as seats')
+  static scopeTakenSeats (builder) {
+    builder.select('*').innerJoin('flight_user', 'flights.id', 'flight_user.flight_id').sum('flight_user.seats as taken_seats')
   }
 
   static get rules () {
