@@ -10,7 +10,7 @@ class Flight extends Lucid {
   };
 
   static scopeTakenSeats (builder) {
-    builder.select('*').innerJoin('flight_user', 'flights.id', 'flight_user.flight_id').sum('flight_user.seats as taken_seats')
+    builder.select('*').leftJoin('flight_user', 'flights.id', 'flight_user.flight_id').groupBy('flights.id').sum('flight_user.seats as taken_seats')
   }
 
   static get rules () {
