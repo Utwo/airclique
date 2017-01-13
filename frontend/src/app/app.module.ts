@@ -12,8 +12,9 @@ import { FlightsListComponent } from './flights-list/flights-list.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { AboutComponent } from './about/about.component';
 import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
-import {LoginService} from './core/login.service';
-import {StateService} from './shared/state.service';
+import { LoginService } from './core/login.service';
+import { StateService } from './shared/state.service';
+import { CitiesService } from "./search/all-cities.service"
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {StateService} from './shared/state.service';
   ],
   providers: [
     LoginService,
-    StateService
+    StateService,
+    CitiesService,
   ],
   bootstrap: [AppComponent]
 })

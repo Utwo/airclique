@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CitiesService} from "./all-cities.service"
 
 @Component({
   selector: 'app-search',
@@ -8,18 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class SearchComponent implements OnInit {
   sursa: string = '';
   destinatie: string = '';
+  errorMessage = null;
 
-  cities_departure: string[] = ['Cluj','Bucuresti', 'Timisoara'];
-  cities_destination: string[] = ['Botosani','Harghita', 'Constanta'];
+  cities : string[] = [];
 
-  city_departure: string = this.cities_departure[0];
-  city_destination: string = this.cities_destination[0];
+  city_departure: string = this.cities[0];
+  city_destination: string = this.cities[0];
   flight_date: Date;
+  flight_class: string;
 
-  constructor() { }
+  constructor(private citiesService: CitiesService) { }
 
   ngOnInit() {
-
+    this.citiesService.getCities()
+      .subscribe(
+        data => this.cities = data,
+        err  => this.errorMessage = "There was an error retrieving the cities"
+      )
   }
 
   onChangeCityDeparture(newValue) {
@@ -32,6 +38,10 @@ export class SearchComponent implements OnInit {
 
   onChangeDate(value) {
     this.flight_date = value;
+  }
+
+  onChangeClass(value) {
+    this.flight_class = value;
     console.log(value);
   }
 

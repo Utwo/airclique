@@ -2,12 +2,18 @@
 <div>
   <h3> Please complete the following information: </h3>
   <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
-    <option *ngFor='let city of cities_departure' [ngValue]="city">{{city}}</option>
+    <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
   <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
-    <option *ngFor='let city of cities_destination' [ngValue]="city">{{city}}</option>
+    <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
   <input type="date" name="Date" (input)="onChangeDate($event.target.value)">
+  <p> Please select class: </p>
+  <select [ngModel]='flight_class' (ngModelChange)="onChangeClass($event)">
+    <option value = 'economy'> Economy </option>
+    <option value = 'business'> Business </option>
+    <option value = 'first'> First </option>
+  </select>
   <p> Nr of passengers: </p>
   <input type="number" name="nr__of_passengers">
   <p><a href="">Conditii de rezervare</a></p>
