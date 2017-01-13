@@ -15,6 +15,11 @@ Http.handleError = function * (error, request, response) {
   /**
    * DEVELOPMENT REPORTER
    */
+  if (error.name === 'ModelNotFoundException') {
+    response.status(404).send('Resource not found')
+    return
+  }
+
   if (Env.get('NODE_ENV') === 'development') {
     const ouch = new Ouch().pushHandler(
       new Ouch.handlers.PrettyPageHandler('blue', null, 'sublime')
