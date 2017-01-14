@@ -18,8 +18,8 @@ export class SearchComponent implements OnInit {
   citiesDestination: ICity[] = [];
   flightsList: IFlight[] = [];
 
-  city_departure: ICity = this.cities[0];
-  city_destination: ICity  = this.cities[0];
+  city_departure: ICity = null;
+  city_destination: ICity  = null;
   flight_date: Date;
   minDate : Date = new Date('dd/MM/yyyy');
   flight_class: string;

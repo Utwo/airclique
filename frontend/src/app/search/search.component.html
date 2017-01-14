@@ -16,7 +16,8 @@
   </select>
   <p> Nr of passengers: </p>
   <input type="number" name="nr_of_passengers" (input)="onChangeSeats($event.target.value)">
-  <button (click)="searchFlight()">Submit</button>
+  <button [disabled]='city_departure == null || city_destination == null' (click)="searchFlight()">Submit</button>
+
   <div>
     <p *ngIf='flightsList && flightsList.length'> Available flights: </p>
     <table *ngIf='flightsList && flightsList.length'>
