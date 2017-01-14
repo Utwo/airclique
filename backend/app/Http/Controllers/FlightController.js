@@ -31,7 +31,6 @@ class FlightController {
     let result_flights = [];
     for (let flight of flights) {
       flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
-      flight.remaining_seats = flight.seats_available - flight.taken_seats
       if (request.params('seats')) {
         if (request.input('seats') > flight.remaining_seats) {
           continue
@@ -46,7 +45,6 @@ class FlightController {
   * flight(request, response) {
     const id = request.param('id')
     const flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', id).first()
-    flight.remaining_seats = flight.seats_available - flight.taken_seats
 
     response.json(flight)
   }
