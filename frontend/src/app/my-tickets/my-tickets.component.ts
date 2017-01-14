@@ -17,20 +17,11 @@ export class MyTicketsComponent implements OnInit {
   ngOnInit() {
     this.myTickets();
   }
-
-  processFlightsList() {
-    this.flightsList = this.flights.map(function(x){
-      x.departure_time = new Date(x.departure_time);
-      x.arrival_time = new Date(x.arrival_time);
-      return x;
-    });
-  }
   myTickets() {
     this.myTicketsService.myFlights()
         .subscribe(
             data => {
-              this.flights = data
-              this.processFlightsList();
+              this.flights = data;
             },
             err  => this.errorMessage = 'Error on receiving flights'
         );

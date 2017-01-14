@@ -12,7 +12,6 @@ export class MyTicketsService {
     }
 
     myFlights () {
-        // let body = JSON.stringify({token: token});
         let token = this.state.getToken();
         let headers = new Headers({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token});
 
