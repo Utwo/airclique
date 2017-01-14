@@ -27,6 +27,7 @@ class UserController {
     const now = new Date()
 
     const flight = yield Flight.findOrFail(flight_id)
+    //TODO special validation in model
     if (flight.departure_time <= now) {
       response.badRequest({message: 'Flight already departed'})
       return

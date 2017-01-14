@@ -21,8 +21,8 @@ class FlightController {
           departure_next.setDate(departure_day.getDate() + 1);
           flights.whereBetween(input, [departure_day, departure_next])
         } else if (input === 'seats') {
-
-        } else {
+          flights.onlyAvailableSeats(request.input('seats'))
+        }else{
           flights.where(input, search_inputs[input])
         }
       }
@@ -30,16 +30,7 @@ class FlightController {
 
     flights = yield flights.takenSeats().with('DepartureCity', 'DestinationCity').fetch()
 
-    let result_flights = [];
-    for (let flight of flights) {
-      if (request.params('seats')) {
-        if (request.input('seats') > flight.remaining_seats) {
-          continue
-        }
-      }
-      result_flights.push(flight);
-    }
-    response.json(result_flights)
+    response.json(flights)
   }
 
   * flight(request, response) {
