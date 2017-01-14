@@ -21,4 +21,5 @@ export class FlightsListComponent implements OnInit {
         err => this.errorMessage = "There was an error retrieving the flights",
       )
   }
+
 }

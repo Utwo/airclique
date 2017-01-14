@@ -25,7 +25,7 @@
         <td>{{ flight.seats_available }}<span *ngIf='flight.seats_available < 5'> Hurry up!</span></td>
         <td>{{ flight.price + ' EUR'}}</td>
         <td>{{ flight.class }}</td>
-        <td> <button> Book </button></td>
+        <td> <button [routerLink]="['/book/flight', flight.id]"> Book </button></td>
       </tr>
     </tbody>
   </table>
