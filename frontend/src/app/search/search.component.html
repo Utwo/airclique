@@ -2,16 +2,49 @@
 <div>
   <h3> Please complete the following information: </h3>
   <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
-    <option *ngFor='let city of cities_departure' [ngValue]="city">{{city}}</option>
+    <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
   <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
-    <option *ngFor='let city of cities_destination' [ngValue]="city">{{city}}</option>
+    <option *ngFor="let city of citiesDestination" [ngValue]="city">{{city.name}}</option>
   </select>
-  <input type="date" name="Date" (input)="onChangeDate($event.target.value)">
+  <input type="date" name="Date" [ngModel]='flight_date' [min]='minDate' (input)="onChangeDate($event.target.value)">
+  <p> Please select class: </p>
+  <select [ngModel]='flight_class' (ngModelChange)="onChangeClass($event)">
+    <option value = 'economy'> Economy </option>
+    <option value = 'business'> Business </option>
+    <option value = 'first'> First </option>
+  </select>
   <p> Nr of passengers: </p>
-  <input type="number" name="nr__of_passengers">
-  <p><a href="">Conditii de rezervare</a></p>
-  <button (click)="searchFlight()">Submit</button>
+  <input type="number" name="nr_of_passengers" (input)="onChangeSeats($event.target.value)">
+  <button [disabled]='city_departure == null || city_destination == null' (click)="searchFlight()">Submit</button>
+
+  <div>
+    <p *ngIf='flightsList && flightsList.length'> Available flights: </p>
+    <table *ngIf='flightsList && flightsList.length'>
+      <thead>
+      <tr>
+        <th> Flight ID</th>
+        <th> Departure City</th>
+        <th> Arrival City </th>
+        <th> Departure time</th>
+        <th> Available places </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let flight of flightsList'>
+        <td>{{ flight.id }}</td>
+        <td>{{ flight.DepartureCity.name}}</td>
+        <td>{{ flight.DestinationCity.name}}</td>
+        <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
+        <td>{{ flight.arrival_time | date: 'hh:mm dd MMM'}}</td>
+        <td>{{ flight.remaining_seats}}</td>
+        <td> <button [routerLink]="['/book/flight', flight.id]"> Book </button></td>
+      </tr>
+      </tbody>
+    </table>
+    <p *ngIf='errorMessage != null'>{{errorMessage}}</p>
+    <p *ngIf='noFlightsAvailable == true'>There is no available flight. Try another search</p>
+  </div>
 </div>
 
 

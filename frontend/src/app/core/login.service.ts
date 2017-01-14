@@ -17,8 +17,8 @@ export class LoginService {
 
     return this.http.post(environment.URL_API + 'login', body, {headers: headers})
       .map(res => res.json())
-      .do(data => {this.state.storeState(data['token'], data)})
-      .catch(error => this.handleError(error))
+      .do(data => {this.state.storeState(data['token'], data); })
+      .catch(error => this.handleError(error));
   }
 
   logout() {

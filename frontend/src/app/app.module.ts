@@ -12,8 +12,9 @@ import { FlightsListComponent } from './flights-list/flights-list.component';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { AboutComponent } from './about/about.component';
 import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
-import {LoginService} from './core/login.service';
-import {StateService} from './shared/state.service';
+import { LoginService } from './core/login.service';
+import { StateService } from './shared/state.service';
+import { SearchService } from './search/search.service';
 import {MyTicketsService} from './my-tickets/my-tickets.service';
 import {AllFlightsService} from './flights-list/all_flights.service';
 import { BookFlightComponent } from './book-flight/book-flight.component';
@@ -41,6 +42,7 @@ import {BuyTicketService} from './book-flight/buy-ticket.service';
   providers: [
     LoginService,
     StateService,
+    SearchService,
     AllFlightsService,
     MyTicketsService,
     GetFlightService,

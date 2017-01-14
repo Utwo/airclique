@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {SearchService} from './search.service';
+import {Headers, Http} from '@angular/http';
+import {environment} from '../../environments/environment';
+import {ICity} from '../shared/city';
+import {Observable} from 'rxjs';
+import {IFlight} from '../shared/flight';
 
 @Component({
   selector: 'app-search',
@@ -6,37 +12,75 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  sursa: string = '';
-  destinatie: string = '';
+  errorMessage = null;
+  noFlightsAvailable = false;
+  cities: ICity[] = [];
+  citiesDestination: ICity[] = [];
+  flightsList: IFlight[] = [];
 
-  cities_departure: string[] = ['Cluj','Bucuresti', 'Timisoara'];
-  cities_destination: string[] = ['Botosani','Harghita', 'Constanta'];
-
-  city_departure: string = this.cities_departure[0];
-  city_destination: string = this.cities_destination[0];
+  city_departure: ICity = null;
+  city_destination: ICity  = null;
   flight_date: Date;
+  minDate : Date = new Date('dd/MM/yyyy');
+  flight_class: string;
+  nrOfSeats: number = 1;
 
-  constructor() { }
+  constructor(private searchService: SearchService, private http: Http) {
+    this.flight_date = new Date();
+    this.minDate = new Date('dd/MM/yyyy');
+  }
 
   ngOnInit() {
-
+    this.searchService.getCities()
+      .subscribe(
+        data => this.cities = data,
+        err  => this.errorMessage = 'There was an error retrieving the cities'
+      );
   }
 
   onChangeCityDeparture(newValue) {
-    console.log(newValue,"selected value");
+    this.city_departure = newValue;
+    this.citiesDestination = this.cities.slice();
+    this.citiesDestination.splice(this.citiesDestination.indexOf(newValue),1);
   }
 
   onChangeCityDestination(newValue) {
-    console.log(newValue,"selected value");
+    this.city_destination = newValue;
   }
 
   onChangeDate(value) {
     this.flight_date = value;
-    console.log(value);
   }
 
-  searchFlight(): void {
-    console.log(this.city_departure, this.flight_date);
+  onChangeSeats(value) {
+    this.nrOfSeats = value;
   }
 
+  onChangeClass(value) {
+    this.flight_class = value;
+  }
+
+  searchFlight() {
+    this.searchService.searchFlight(this.city_departure.id, this.city_destination.id, this.flight_date, this.nrOfSeats, this.flight_class)
+        .subscribe(
+            data => this.handleResponse(data),
+            err  => this.errorMessage = 'No flights available for the selected dates'
+        );
+  }
+
+  handleResponse(data) {
+    if(data.length == 0) {
+      this.noFlightsAvailable = true;
+    }
+    else {
+      this.flightsList = data;
+    }
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+        error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
 }
