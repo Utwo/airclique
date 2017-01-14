@@ -8,10 +8,10 @@ class Flight extends Lucid {
   * remaining() {
     let seats_taken = yield Database.from('flight_user').where({flight_id: this.id}).sum('seats as seats')
     this.remaining_seats = this.seats_available - seats_taken[0].seats
-  };
+  }
 
   static scopeTakenSeats (builder) {
-    builder.select(Database.raw('*, (flights.seats_available - sum(flight_user.seats)) as remaining_seats')).innerJoin('flight_user', 'flights.id', 'flight_user.flight_id')
+    builder.select(Database.raw('*, (flights.seats_available - sum(flight_user.seats)) as remaining_seats')).innerJoin('flight_user', 'flights.id', 'flight_user.flight_id').groupBy('flights.id')
   }
 
   static get rules () {

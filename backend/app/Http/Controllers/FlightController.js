@@ -26,20 +26,22 @@ class FlightController {
       }
     }
 
-    flights = yield flights.fetch()
+    flights = yield flights.takenSeats().with('DepartureCity', 'DestinationCity').fetch()
+    response.json(flights)
 
-    let result_flights = [];
-    for (let flight of flights) {
-      flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
-      if (request.params('seats')) {
-        if (request.input('seats') > flight.remaining_seats) {
-          continue
-        }
-      }
-      result_flights.push(flight);
-    }
+    /*
+        let result_flights = [];
+        for (let flight of flights) {
+          flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
+          flight.remaining_seats = flight.seats_available - flight.taken_seats
+          if (request.params('seats')) {
+            if (request.input('seats') > flight.remaining_seats) {
+              continue
+            }
+          }
+          result_flights.push(flight);
+        }*/
 
-    response.json(result_flights)
   }
 
   * flight(request, response) {
