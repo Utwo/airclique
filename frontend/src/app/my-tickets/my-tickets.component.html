@@ -5,6 +5,7 @@
     <thead>
     <tr>
       <th> Flight ID</th>
+      <th> Nr of tickets</th>
       <th> Class</th>
       <th> Departure Time </th>
       <th> Arrival Time</th>
@@ -15,6 +16,7 @@
     <tbody *ngIf='flights && flights.length'>
     <tr *ngFor='let flight of flights'>
       <td>{{ flight.id }}</td>
+      <td>{{ flight._pivot_seats }}</td>
       <td>{{ flight.class }}</td>
       <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
       <td>{{ flight.arrival_time | date: 'hh:mm dd MMM' }}</td>
