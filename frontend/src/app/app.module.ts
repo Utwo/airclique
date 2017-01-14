@@ -15,6 +15,8 @@ import { AdditionalDetailsComponent } from './additional-details/additional-deta
 import { LoginService } from './core/login.service';
 import { StateService } from './shared/state.service';
 import { SearchService } from './search/search.service';
+import {MyTicketsService} from './my-tickets/my-tickets.service';
+import {AllFlightsService} from './flights-list/all_flights.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { SearchService } from './search/search.service';
     LoginService,
     StateService,
     SearchService,
+    AllFlightsService,
+    MyTicketsService
   ],
   bootstrap: [AppComponent]
 })
