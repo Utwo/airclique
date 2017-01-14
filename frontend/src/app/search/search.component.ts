@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {CitiesService} from "./all-cities.service"
+import {SearchService} from './search.service';
+import {Headers, Http} from '@angular/http';
+import {environment} from '../../environments/environment';
+import {ICity} from '../shared/city';
+import {Observable} from 'rxjs';
+import {IFlight} from '../flights-list/flight';
 
 @Component({
   selector: 'app-search',
@@ -11,42 +16,57 @@ export class SearchComponent implements OnInit {
   destinatie: string = '';
   errorMessage = null;
 
-  cities : string[] = [];
+  cities: ICity[] = [];
 
-  city_departure: string = this.cities[0];
-  city_destination: string = this.cities[0];
+  city_departure: ICity = this.cities[0];
+  city_destination: ICity  = this.cities[0];
   flight_date: Date;
   flight_class: string;
+  nrOfSeats: number;
+  flightsList: IFlight;
 
-  constructor(private citiesService: CitiesService) { }
+  constructor(private searchService: SearchService, private http: Http) { }
 
   ngOnInit() {
-    this.citiesService.getCities()
+    this.searchService.getCities()
       .subscribe(
         data => this.cities = data,
-        err  => this.errorMessage = "There was an error retrieving the cities"
-      )
+        err  => this.errorMessage = 'There was an error retrieving the cities'
+      );
   }
 
   onChangeCityDeparture(newValue) {
-    console.log(newValue,"selected value");
+    this.city_departure = newValue;
   }
 
   onChangeCityDestination(newValue) {
-    console.log(newValue,"selected value");
+    this.city_destination = newValue;
   }
 
   onChangeDate(value) {
     this.flight_date = value;
   }
 
+  onChangeSeats(value) {
+    this.nrOfSeats = value;
+  }
+
   onChangeClass(value) {
     this.flight_class = value;
-    console.log(value);
   }
-
-  searchFlight(): void {
-    console.log(this.city_departure, this.flight_date);
+// data default -> data de azi (sa fie si default 1 la pasageri)
+  searchFlight() {
+    this.searchService.searchFlight(this.city_departure.id, this.city_destination.id, this.flight_date, this.nrOfSeats, this.flight_class)
+        .subscribe(
+            data => this.flightsList = data,
+            err  => this.errorMessage = 'No flight available.'
+        );
+    console.log(this.flightsList);
   }
-
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+        error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
 }

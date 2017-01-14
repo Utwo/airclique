@@ -15,7 +15,32 @@
     <option value = 'first'> First </option>
   </select>
   <p> Nr of passengers: </p>
-  <input type="number" name="nr__of_passengers">
+  <input type="number" name="nr_of_passengers" (input)="onChangeSeats($event.target.value)">
   <p><a href="">Conditii de rezervare</a></p>
   <button (click)="searchFlight()">Submit</button>
+  <div>
+    <p> Available flights: </p>
+    <table>
+      <thead>
+      <tr>
+        <th> Flight ID</th>
+        <th> Departure City</th>
+        <th> Arrival City </th>
+        <th> Departure time</th>
+        <th> Available places </th>
+      </tr>
+      </thead>
+      <tbody *ngIf='flightsList && flightsList.length'>
+      <tr *ngFor='let flight of flightsList'>
+        <td>{{ flight.flightId }}</td>
+        <td>{{ flight.departure_city}}</td>
+        <td>{{ flight.arrival_city }}</td>
+        <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
+        <td>{{ flight.arrival_time | date: 'hh:mm dd MMM'}}</td>
+        <td>{{ flight.available_places | date: 'hh:mm dd MMM'}}</td>
+        <td> <button> Book </button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

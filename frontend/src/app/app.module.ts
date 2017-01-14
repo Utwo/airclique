@@ -14,7 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { AdditionalDetailsComponent } from './additional-details/additional-details.component';
 import { LoginService } from './core/login.service';
 import { StateService } from './shared/state.service';
-import { CitiesService } from "./search/all-cities.service"
+import { SearchService } from './search/search.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { CitiesService } from "./search/all-cities.service"
   providers: [
     LoginService,
     StateService,
-    CitiesService,
+    SearchService,
   ],
   bootstrap: [AppComponent]
 })
