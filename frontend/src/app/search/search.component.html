@@ -4,10 +4,10 @@
   <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
     <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
-  <select [(ngModel)]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
-    <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
+  <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
+    <option *ngFor="let city of citiesDestination" [ngValue]="city">{{city.name}}</option>
   </select>
-  <input type="date" name="Date" (input)="onChangeDate($event.target.value)">
+  <input type="date" name="Date" [ngModel]='flight_date' [min]='minDate' (input)="onChangeDate($event.target.value)">
   <p> Please select class: </p>
   <select [ngModel]='flight_class' (ngModelChange)="onChangeClass($event)">
     <option value = 'economy'> Economy </option>
@@ -16,10 +16,9 @@
   </select>
   <p> Nr of passengers: </p>
   <input type="number" name="nr_of_passengers" (input)="onChangeSeats($event.target.value)">
-  <p><a href="">Conditii de rezervare</a></p>
   <button (click)="searchFlight()">Submit</button>
   <div>
-    <p> Available flights: </p>
+    <p *ngIf='flightsList && flightsList.length'> Available flights: </p>
     <table *ngIf='flightsList && flightsList.length'>
       <thead>
       <tr>
@@ -42,7 +41,8 @@
       </tr>
       </tbody>
     </table>
-    <p *ngIf='flightList && flightsList.length == 0 && errorMessage !=null'>{{errorMessage}}</p>
+    <p *ngIf='errorMessage != null'>{{errorMessage}}</p>
+    <p *ngIf='noFlightsAvailable == true'>There is no available flight. Try another search</p>
   </div>
 </div>
 

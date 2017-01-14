@@ -13,17 +13,22 @@ import {IFlight} from '../shared/flight';
 })
 export class SearchComponent implements OnInit {
   errorMessage = null;
-
+  noFlightsAvailable = false;
   cities: ICity[] = [];
+  citiesDestination: ICity[] = [];
   flightsList: IFlight[] = [];
 
   city_departure: ICity = this.cities[0];
   city_destination: ICity  = this.cities[0];
   flight_date: Date;
+  minDate : Date = new Date('dd/MM/yyyy');
   flight_class: string;
   nrOfSeats: number = 1;
 
-  constructor(private searchService: SearchService, private http: Http) { }
+  constructor(private searchService: SearchService, private http: Http) {
+    this.flight_date = new Date();
+    this.minDate = new Date('dd/MM/yyyy');
+  }
 
   ngOnInit() {
     this.searchService.getCities()
@@ -35,6 +40,8 @@ export class SearchComponent implements OnInit {
 
   onChangeCityDeparture(newValue) {
     this.city_departure = newValue;
+    this.citiesDestination = this.cities.slice();
+    this.citiesDestination.splice(this.citiesDestination.indexOf(newValue),1);
   }
 
   onChangeCityDestination(newValue) {
@@ -52,14 +59,24 @@ export class SearchComponent implements OnInit {
   onChangeClass(value) {
     this.flight_class = value;
   }
-// data default -> data de azi (sa fie si default 1 la pasageri)
+
   searchFlight() {
     this.searchService.searchFlight(this.city_departure.id, this.city_destination.id, this.flight_date, this.nrOfSeats, this.flight_class)
         .subscribe(
-            data => this.flightsList = data,
-            err  => this.errorMessage = 'No flight available.'
+            data => this.handleResponse(data),
+            err  => this.errorMessage = 'No flights available for the selected dates'
         );
   }
+
+  handleResponse(data) {
+    if(data.length == 0) {
+      this.noFlightsAvailable = true;
+    }
+    else {
+      this.flightsList = data;
+    }
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :
         error.status ? `${error.status} - ${error.statusText}` : 'Server error';
