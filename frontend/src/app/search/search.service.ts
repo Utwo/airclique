@@ -15,11 +15,10 @@ export class SearchService {
     url = url + 'city_departure_id=' + cityDepartureId + '&';
     url = url + 'city_destination_id=' + cityDestinationId + '&';
     url = url + 'departure_time=' + departureTime + '&';
-    // url = url + 'seats=' + seatsNumber + '&';
+    url = url + 'seats=' + seatsNumber + '&';
     url = url + 'class=' + flightClass;
 
     return this.http.get(environment.URL_API + url, {headers: headers})
-    // .map(res => res.json(), console.log(res)})
         .map(res => res.json())
         .catch(error => this.handleError(error));
   }
