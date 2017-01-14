@@ -20,33 +20,22 @@ class FlightController {
           const departure_next = new Date(departure_day);
           departure_next.setDate(departure_day.getDate() + 1);
           flights.whereBetween(input, [departure_day, departure_next])
-        } else {
+        } else if (input === 'seats') {
+          flights.onlyAvailableSeats(request.input('seats'))
+        }else{
           flights.where(input, search_inputs[input])
         }
       }
     }
 
-    flights = yield flights.fetch()
+    flights = yield flights.takenSeats().with('DepartureCity', 'DestinationCity').fetch()
 
-    let result_flights = [];
-    for (let flight of flights) {
-      flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', flight.id).first()
-      flight.remaining_seats = flight.seats_available - flight.taken_seats
-      if (request.params('seats')) {
-        if (request.input('seats') > flight.remaining_seats) {
-          continue
-        }
-      }
-      result_flights.push(flight);
-    }
-
-    response.json(result_flights)
+    response.json(flights)
   }
 
   * flight(request, response) {
     const id = request.param('id')
     const flight = yield Flight.query().takenSeats().with('DepartureCity', 'DestinationCity').where('id', id).first()
-    flight.remaining_seats = flight.seats_available - flight.taken_seats
 
     response.json(flight)
   }
@@ -67,7 +56,7 @@ class FlightController {
   * destroy(request, response) {
     const flight = yield Flight.find(request.param('id'))
     yield flight.delete()
-    response.json({ message: 'The flight was cancelled' })
+    response.json({message: 'The flight was cancelled'})
   }
 
 }
