@@ -16,11 +16,10 @@
     <tr *ngFor='let flight of flights'>
       <td>{{ flight.id }}</td>
       <td>{{ flight.class }}</td>
-      <td>{{ flight.departure_time }}</td>
-      <td>{{ flight.arrival_time }}</td>
+      <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
+      <td>{{ flight.arrival_time | date: 'hh:mm dd MMM' }}</td>
       <td>{{ flight.DepartureCity.name }}</td>
       <td>{{ flight.DestinationCity.name }}</td>
-      <td> <button> Book </button></td>
     </tr>
     </tbody>
   </table>
