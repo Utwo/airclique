@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {HomeComponent} from "../home/home.component";
 import {LoginService} from '../core/login.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
