@@ -15,6 +15,18 @@ export class StateService {
     return localStorage.getItem('token');
   }
 
+  storeFlight(flightId) {
+    localStorage.setItem('flightId', flightId);
+  }
+
+  deleteFlight() {
+    localStorage.removeItem('flightId');
+  }
+
+  getFlight() {
+    return localStorage.getItem('flightId');
+  }
+
   setUser(user) {
     localStorage.setItem('user', JSON.stringify(user));
   }

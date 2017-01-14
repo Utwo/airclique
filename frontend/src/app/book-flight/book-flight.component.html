@@ -14,6 +14,6 @@
   </div>
   <input type="checkbox" [(ngModel)]="agreed" > I agree to terms and services<br>
   <button *ngIf='state.isLoggedIn()' (click)="buyTicket(flight.id)" [disabled]="!(agreed && (nr_of_passengers > 0))">Buy ticket</button>
-  <button *ngIf='!state.isLoggedIn()'(click)="buyTicket(flight.id)" [disabled]="!(agreed && (nr_of_passengers > 0))">Login and buy </button>
-
+  <button *ngIf='!state.isLoggedIn()' (click)="buyTicketAndLogin(flight.id)">Login and buy </button>
+  <p> {{message}}</p>
 </div>

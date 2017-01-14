@@ -17,6 +17,7 @@ export class BookFlightComponent implements OnInit {
   errorMessage: string = null;
   agreed : boolean = false;
   nr_of_passengers = null;
+  message: string = null;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
@@ -28,7 +29,6 @@ export class BookFlightComponent implements OnInit {
 
   ngOnInit(): void {
     let id = +this._route.snapshot.params['id']; // + trece din string in nr
-    //this.pageTitle += `: ${id}`;
     this.flightService.getFlight(id)
       .subscribe(
         data => {this.flight = data, console.log(data)},
@@ -37,9 +37,15 @@ export class BookFlightComponent implements OnInit {
   }
 
   buyTicket(flightId) {
-    // this.buyTicketService(flightId, this.nr_of_passengers)
-    //   .subscribe(
-    //     data =>
-    //   )
+    this.buyTicketService.buyTicket(flightId, this.nr_of_passengers)
+      .subscribe(
+        data => this.message = "The ticket was bought with success",
+        err  => this.message = "There was a problem buying the ticket"
+      )
+  }
+
+  buyTicketAndLogin(flightId) {
+    this.state.storeFlight(flightId);
+    this._router.navigate(['login']);
   }
 }
