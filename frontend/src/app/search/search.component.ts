@@ -4,7 +4,7 @@ import {Headers, Http} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {ICity} from '../shared/city';
 import {Observable} from 'rxjs';
-import {IFlight} from '../flights-list/flight';
+import {IFlight} from '../shared/flight';
 
 @Component({
   selector: 'app-search',

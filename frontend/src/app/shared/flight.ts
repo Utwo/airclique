@@ -2,6 +2,7 @@
 export interface IFlight {
     id: number;
     class: string;
+    remaining_seats: number;
     seats_available: number;
     price: number;
     departure_time: Date;
