@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GetFlightService} from './get-flight.service';
 import {IFlight} from '../shared/flight';
 import {BuyTicketService} from './buy-ticket.service';
+import {StateService} from '../shared/state.service';
 
 @Component({
   selector: 'app-book-flight',
@@ -20,6 +21,7 @@ export class BookFlightComponent implements OnInit {
   constructor(private _route: ActivatedRoute,
               private _router: Router,
               private flightService: GetFlightService,
+              private state: StateService,
               private buyTicketService: BuyTicketService,
   ) {
   }
@@ -35,9 +37,9 @@ export class BookFlightComponent implements OnInit {
   }
 
   buyTicket(flightId) {
-    this.buyTicketService(flightId, this.nr_of_passengers)
-      .subscribe(
-        data =>
-      )
+    // this.buyTicketService(flightId, this.nr_of_passengers)
+    //   .subscribe(
+    //     data =>
+    //   )
   }
 }
