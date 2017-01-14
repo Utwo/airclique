@@ -16,6 +16,9 @@ import {LoginService} from './core/login.service';
 import {StateService} from './shared/state.service';
 import {MyTicketsService} from './my-tickets/my-tickets.service';
 import {AllFlightsService} from './flights-list/all_flights.service';
+import { BookFlightComponent } from './book-flight/book-flight.component';
+import {GetFlightService} from './book-flight/get-flight.service';
+import {BuyTicketService} from './book-flight/buy-ticket.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {AllFlightsService} from './flights-list/all_flights.service';
     FlightsListComponent,
     MyTicketsComponent,
     AboutComponent,
-    AdditionalDetailsComponent
+    AdditionalDetailsComponent,
+    BookFlightComponent
   ],
   imports: [
     routing,
@@ -38,7 +42,9 @@ import {AllFlightsService} from './flights-list/all_flights.service';
     LoginService,
     StateService,
     AllFlightsService,
-    MyTicketsService
+    MyTicketsService,
+    GetFlightService,
+    BuyTicketService,
   ],
   bootstrap: [AppComponent]
 })

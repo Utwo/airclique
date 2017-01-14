@@ -4,6 +4,7 @@ import {LoginService} from '../core/login.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import {StateService} from '../shared/state.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private loginService: LoginService
+      private loginService: LoginService,
+      private state: StateService,
   ) { }
 
   ngOnInit() {
@@ -31,8 +33,18 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login(this.username, this.password)
       .subscribe(
-        data => this.router.navigate(['']),
+        data => this.handleLogin(),
         err  => this.errorMessage = 'There was an error when logging in'
       );
+  }
+
+  handleLogin() {
+    if(this.state.getFlight() != null){ //the user wants to proceed with booking
+      this.router.navigate(['/book/flight', this.state.getFlight()])
+      this.state.deleteFlight();
+    }
+    else {
+      this.router.navigate([''])
+    }
   }
 }
