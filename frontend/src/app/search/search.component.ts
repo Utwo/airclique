@@ -12,18 +12,16 @@ import {IFlight} from '../shared/flight';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  sursa: string = '';
-  destinatie: string = '';
   errorMessage = null;
 
   cities: ICity[] = [];
+  flightsList: IFlight[] = [];
 
   city_departure: ICity = this.cities[0];
   city_destination: ICity  = this.cities[0];
   flight_date: Date;
   flight_class: string;
-  nrOfSeats: number;
-  flightsList: IFlight;
+  nrOfSeats: number = 1;
 
   constructor(private searchService: SearchService, private http: Http) { }
 
@@ -61,7 +59,6 @@ export class SearchComponent implements OnInit {
             data => this.flightsList = data,
             err  => this.errorMessage = 'No flight available.'
         );
-    console.log(this.flightsList);
   }
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :

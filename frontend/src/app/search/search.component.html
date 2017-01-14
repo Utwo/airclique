@@ -4,7 +4,7 @@
   <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
     <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
-  <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
+  <select [(ngModel)]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
     <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
   </select>
   <input type="date" name="Date" (input)="onChangeDate($event.target.value)">
@@ -20,7 +20,7 @@
   <button (click)="searchFlight()">Submit</button>
   <div>
     <p> Available flights: </p>
-    <table>
+    <table *ngIf='flightsList && flightsList.length'>
       <thead>
       <tr>
         <th> Flight ID</th>
@@ -30,7 +30,7 @@
         <th> Available places </th>
       </tr>
       </thead>
-      <tbody *ngIf='flightsList && flightsList.length'>
+      <tbody>
       <tr *ngFor='let flight of flightsList'>
         <td>{{ flight.id }}</td>
         <td>{{ flight.DepartureCity.name}}</td>
@@ -38,10 +38,11 @@
         <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
         <td>{{ flight.arrival_time | date: 'hh:mm dd MMM'}}</td>
         <td>{{ flight.remaining_seats}}</td>
-        <td> <button> Book </button></td>
+        <td> <button [routerLink]="['/book/flight', flight.id]"> Book </button></td>
       </tr>
       </tbody>
     </table>
+    <p *ngIf='flightList && flightsList.length == 0 && errorMessage !=null'>{{errorMessage}}</p>
   </div>
 </div>
 
