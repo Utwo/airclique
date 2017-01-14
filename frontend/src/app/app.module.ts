@@ -18,6 +18,7 @@ import {MyTicketsService} from './my-tickets/my-tickets.service';
 import {AllFlightsService} from './flights-list/all_flights.service';
 import { BookFlightComponent } from './book-flight/book-flight.component';
 import {GetFlightService} from './book-flight/get-flight.service';
+import {BuyTicketService} from './book-flight/buy-ticket.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {GetFlightService} from './book-flight/get-flight.service';
     AllFlightsService,
     MyTicketsService,
     GetFlightService,
+    BuyTicketService,
   ],
   bootstrap: [AppComponent]
 })

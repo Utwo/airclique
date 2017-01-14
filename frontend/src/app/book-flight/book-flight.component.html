@@ -1,3 +1,17 @@
-<p>
-  book-flight works!
-</p>
+
+
+<div *ngIf='flight && flight != null'>
+  <h3> Flight id: {{flight.id}}</h3>
+  <div>
+    <p> Departure City: {{flight.DepartureCity.name}}</p>
+    <p> Destination City: {{flight.DestinationCity.name}}</p>
+    <p> Departure time: {{flight.departure_time | date: 'hh:mm dd MMM' }}</p>
+    <p> Arrival time: {{flight.arrival_time | date: 'hh:mm dd MMM'}}</p>
+    <p> Price: {{flight.price + ' EUR'}}</p>
+    <p> Class: {{flight.class }}</p>
+    <p> Nr of passengers: </p>
+    <input type="number" name="nr__of_passengers" [(ngModel)]="nr_of_passengers">
+  </div>
+  <input type="checkbox" [(ngModel)]="agreed" > I agree to terms and services<br>
+  <button (click)="buyTicket(flight.id)" [disabled]="!(agreed && (nr_of_passengers > 0))">Buy ticket</button>
+</div>
