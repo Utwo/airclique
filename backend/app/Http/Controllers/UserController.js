@@ -27,13 +27,13 @@ class UserController {
     const now = new Date()
 
     const flight = yield Flight.findOrFail(flight_id)
-    if(flight.departure_time <= now){
+    if (flight.departure_time <= now) {
       response.badRequest({message: 'Flight already departed'})
       return
     }
 
     const my_flight = yield user.Flight().where('id', flight_id).first()
-    if(my_flight._pivot_seats){
+    if (my_flight) {
       seats = request.input('seats') + my_flight._pivot_seats
       yield flight.User().detach([user.id])
     }
