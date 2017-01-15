@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username, this.password)
       .subscribe(
         data => this.handleLogin(),
-        err  => this.errorMessage = 'There was an error when logging in'
+        err  => this.errorMessage = 'Email or password are incorrect'
       );
   }
 

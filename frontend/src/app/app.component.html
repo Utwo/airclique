@@ -6,16 +6,27 @@
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation">
-        <a [routerLink]="['']" class="mdl-navigation__link">Home</a>
-        <a [routerLink]="['about']" class="mdl-navigation__link">About</a>
-        <a [routerLink]="['search']" class="mdl-navigation__link">Search Flight</a>
-        <a [routerLink]="['showAll']" class="mdl-navigation__link">Upcoming Flights</a>
-        <a [routerLink]="['more-details']" class="mdl-navigation__link">Information</a>
+        <a [routerLink]="['']" class="mdl-navigation__link">
+          <i class="material-icons">home</i>
+        </a>
+        <a [routerLink]="['about']" class="mdl-navigation__link">
+          About
+        </a>
+        <a [routerLink]="['more-details']" class="mdl-navigation__link">
+          FAQ
+        </a>
+        <a [routerLink]="['search']" class="mdl-navigation__link">
+          <i class="material-icons">search</i> Search Flight</a>
+        <a [routerLink]="['showAll']" class="mdl-navigation__link">
+          <i class="material-icons">flight_takeoff</i> Upcoming Flights
+        </a>
 
         <a [routerLink]="['login']" *ngIf="!state.isLoggedIn()" class="mdl-navigation__link">Login</a>
-        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link"><strong>{{userName}}</strong></a>
         <a [routerLink]="['myTickets']" *ngIf="state.isLoggedIn()" class="mdl-navigation__link">My Tickets</a>
-        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link" (click)="logout()"><i class="material-icons">exit_to_app</i></a>
+        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link"><strong><i class="material-icons">perm_identity</i>{{userName}}</strong></a>
+        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link" (click)="logout()">
+          <i class="material-icons">exit_to_app</i>
+        </a>
       </nav>
     </div>
   </header>
