@@ -16,7 +16,7 @@ export class BookFlightComponent implements OnInit {
   flight: IFlight = null;
   errorMessage: string = null;
   agreed : boolean = false;
-  nr_of_passengers = null;
+  nr_of_passengers = 1;
   message: string = null;
 
   constructor(private _route: ActivatedRoute,

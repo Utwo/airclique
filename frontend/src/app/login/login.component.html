@@ -9,21 +9,21 @@
           class="mdl-textfield__input"
           required
           type="email"
+          placeholder="Email"
           [(ngModel)]='username'
           [ngModelOptions]="{standalone: true}"
           id="email">
-        <label class="mdl-textfield__label" for="email">Email</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
         <input
           class="mdl-textfield__input"
           required
-          type="text"
+          placeholder="Password"
+          type="password"
           [(ngModel)]='password'
           [ngModelOptions]="{standalone: true}"
           id="password">
-        <label class="mdl-textfield__label" for="password">Password</label>
       </div>
       <div>
         <button

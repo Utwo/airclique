@@ -1,19 +1,62 @@
-
-
 <div *ngIf='flight && flight != null'>
-  <h3> Flight id: {{flight.id}}</h3>
-  <div>
-    <p> Departure City: {{flight.DepartureCity.name}}</p>
-    <p> Destination City: {{flight.DestinationCity.name}}</p>
-    <p> Departure time: {{flight.departure_time | date: 'hh:mm dd MMM' }}</p>
-    <p> Arrival time: {{flight.arrival_time | date: 'hh:mm dd MMM'}}</p>
-    <p> Price: {{flight.price + ' EUR'}}</p>
-    <p> Class: {{flight.class }}</p>
-    <p> Nr of passengers: </p>
-    <input type="number" name="nr__of_passengers" [(ngModel)]="nr_of_passengers">
+  <div class="flight-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text"> Flight #{{flight.id}}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col text-center"><i class="material-icons">flight_takeoff</i></div>
+        <div class="mdl-cell mdl-cell--4-col text-center"><i class="material-icons">more_horiz</i></div>
+        <div class="mdl-cell mdl-cell--4-col text-center"><i class="material-icons">flight_land</i></div>
+        <div class="mdl-cell mdl-cell--4-col text-center"><strong>{{flight.DepartureCity.name}}</strong></div>
+        <div class="mdl-cell mdl-cell--4-col text-center"></div>
+        <div class="mdl-cell mdl-cell--4-col text-center"><strong>{{flight.DestinationCity.name}}</strong></div>
+        <div class="mdl-cell mdl-cell--4-col text-center">{{flight.departure_time | date: 'dd MMM yyyy hh:mm' }}</div>
+        <div class="mdl-cell mdl-cell--4-col text-center"></div>
+        <div class="mdl-cell mdl-cell--4-col text-center">{{flight.arrival_time | date: 'dd MMM yyyy hh:mm'}}</div>
+      </div>
+      <br>
+      <br>
+      <div class="text-center">
+        <i class="material-icons">attach_money</i>
+        {{flight.price + ' LEI'}}
+      </div>
+      <div class="text-center">
+        <i class="material-icons">event_seat</i>
+        {{flight.class}} class
+      </div>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <label for="nr_of_passengers">Seats: </label>
+      <input
+        class="search-input"
+        id="nr_of_passengers"
+        type="number"
+        name="nr_of_passengers"
+        [(ngModel)]="nr_of_passengers"
+      >
+      <br>
+      <input title="terms" type="checkbox" [(ngModel)]="agreed"> <a [routerLink]="['/more-details']">I agree to terms and
+      services</a><br>
+      <br>
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-center"
+        *ngIf='state.isLoggedIn()'
+        (click)="buyTicket(flight.id)"
+        [disabled]="!(agreed && (nr_of_passengers > 0))"
+      >
+        Book flight
+      </button>
+
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+        *ngIf='!state.isLoggedIn()'
+        (click)="buyTicketAndLogin(flight.id)"
+      >
+        Login and book flight
+      </button>
+      <br>
+      <i>{{message}}</i>
+    </div>
   </div>
-  <input type="checkbox" [(ngModel)]="agreed"> <a [routerLink]="['/more-details']">I agree to terms and services</a><br>
-  <button *ngIf='state.isLoggedIn()' (click)="buyTicket(flight.id)" [disabled]="!(agreed && (nr_of_passengers > 0))">Buy ticket</button>
-  <button *ngIf='!state.isLoggedIn()' (click)="buyTicketAndLogin(flight.id)">Login and buy </button>
-  <p> {{message}}</p>
 </div>
