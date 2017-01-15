@@ -13,10 +13,9 @@ import {IFlight} from '../shared/flight';
 })
 export class SearchComponent implements OnInit {
   errorMessage = null;
-  noFlightsAvailable = false;
   cities: ICity[] = [];
   citiesDestination: ICity[] = [];
-  flightsList: IFlight[] = [];
+  flightsList: IFlight[] = null;
 
   city_departure: ICity = null;
   city_destination: ICity  = null;
@@ -63,18 +62,9 @@ export class SearchComponent implements OnInit {
   searchFlight() {
     this.searchService.searchFlight(this.city_departure.id, this.city_destination.id, this.flight_date, this.nrOfSeats, this.flight_class)
         .subscribe(
-            data => this.handleResponse(data),
+            data => this.flightsList = data,
             err  => this.errorMessage = 'No flights available for the selected dates'
         );
-  }
-
-  handleResponse(data) {
-    if(data.length == 0) {
-      this.noFlightsAvailable = true;
-    }
-    else {
-      this.flightsList = data;
-    }
   }
 
   private handleError(error: any) {

@@ -1,32 +1,43 @@
-
-<div>
-  <h3> Check the next flights: </h3>
-
-  <table>
-    <thead>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <h3 class="page-header">Upcoming flights</h3>
+    <table class="mdl-data-table all-flights">
+      <thead>
       <tr>
         <th> Flight ID</th>
         <th> Departure City</th>
-        <th> Arrival City </th>
+        <th> Arrival City</th>
         <th> Departure time</th>
         <th> Arrival time</th>
-        <th> Available places </th>
+        <th> Remaining seats</th>
         <th> Price</th>
         <th> Class</th>
+        <th></th>
       </tr>
-    </thead>
-    <tbody *ngIf='flights && flights.length'>
+      </thead>
+      <tbody *ngIf='flights && flights.length'>
       <tr *ngFor='let flight of flights'>
         <td>{{ flight.id }}</td>
         <td>{{ flight.DepartureCity.name }}</td>
         <td>{{ flight.DestinationCity.name }}</td>
-        <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
-        <td>{{ flight.arrival_time | date: 'hh:mm dd MMM'}}</td>
-        <td>{{ flight.seats_available }}<span *ngIf='flight.seats_available < 5'> Hurry up!</span></td>
-        <td>{{ flight.price + ' EUR'}}</td>
+        <td>{{ flight.departure_time | date: 'dd MMM yyyy hh:mm'}}</td>
+        <td>{{ flight.arrival_time | date: 'dd MMM yyyy hh:mm'}}</td>
+        <td>
+          <strong *ngIf='flight.remaining_seats <= 5'>Hurry up! Only </strong>
+          {{ flight.remaining_seats }}
+        </td>
+        <td>{{ flight.price + ' LEI'}}</td>
         <td>{{ flight.class }}</td>
-        <td> <button [routerLink]="['/book/flight', flight.id]"> Book </button></td>
+        <td>
+          <button
+            [routerLink]="['/book/flight', flight.id]"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+          >
+            Book
+          </button>
+        </td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>

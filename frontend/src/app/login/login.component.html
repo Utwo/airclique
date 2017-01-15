@@ -1,19 +1,38 @@
-<div>
-  <div>
-    <h3> Login</h3>
-    <form>
-      Email: <input type='text' [(ngModel)]='username' [ngModelOptions]="{standalone: true}"><br>
-      Password: <input type='password' [(ngModel)]='password' [ngModelOptions]="{standalone: true}"><br>
-      <button (click)="login()">  <img [src]='imageURL'
-                                       [title]="imageTitle"
-                                       [style.width.px]="imageWidth"
-                                       [style.height.px]="imageHeight"/>
-      </button>
-      <i *ngIf = 'errorMessage'> {{errorMessage}}</i>
+<div class="login-card-wide mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Login</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <form (submit)="login()">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input
+          class="mdl-textfield__input"
+          required
+          type="email"
+          placeholder="Email"
+          [(ngModel)]='username'
+          [ngModelOptions]="{standalone: true}"
+          id="email">
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+        <input
+          class="mdl-textfield__input"
+          required
+          placeholder="Password"
+          type="password"
+          [(ngModel)]='password'
+          [ngModelOptions]="{standalone: true}"
+          id="password">
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Login
+        </button>
+      </div>
+      <i *ngIf='errorMessage'> {{errorMessage}}</i>
     </form>
   </div>
-
-  <!--
-       <p>I'm not a user... </p> <button><a [routerLink]="['createAccount']">Create account!</a></button>
-  -->
 </div>

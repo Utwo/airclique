@@ -1,50 +1,79 @@
-
-<div>
-  <h3> Please complete the following information: </h3>
-  <select [ngModel]='city_departure' (ngModelChange)="onChangeCityDeparture($event)">
-    <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
-  </select>
-  <select [ngModel]='city_destination' (ngModelChange)="onChangeCityDestination($event)">
-    <option *ngFor="let city of citiesDestination" [ngValue]="city">{{city.name}}</option>
-  </select>
-  <input type="date" name="Date" [ngModel]='flight_date' [min]='minDate' (input)="onChangeDate($event.target.value)">
-  <p> Please select class: </p>
-  <select [ngModel]='flight_class' (ngModelChange)="onChangeClass($event)">
-    <option value = 'economy'> Economy </option>
-    <option value = 'business'> Business </option>
-    <option value = 'first'> First </option>
-  </select>
-  <p> Nr of passengers: </p>
-  <input type="number" name="nr_of_passengers" (input)="onChangeSeats($event.target.value)">
-  <button [disabled]='city_departure == null || city_destination == null' (click)="searchFlight()">Submit</button>
-
-  <div>
-    <p *ngIf='flightsList && flightsList.length'> Available flights: </p>
-    <table *ngIf='flightsList && flightsList.length'>
-      <thead>
-      <tr>
-        <th> Flight ID</th>
-        <th> Departure City</th>
-        <th> Arrival City </th>
-        <th> Departure time</th>
-        <th> Available places </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor='let flight of flightsList'>
-        <td>{{ flight.id }}</td>
-        <td>{{ flight.DepartureCity.name}}</td>
-        <td>{{ flight.DestinationCity.name}}</td>
-        <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
-        <td>{{ flight.arrival_time | date: 'hh:mm dd MMM'}}</td>
-        <td>{{ flight.remaining_seats}}</td>
-        <td> <button [routerLink]="['/book/flight', flight.id]"> Book </button></td>
-      </tr>
-      </tbody>
-    </table>
-    <p *ngIf='errorMessage != null'>{{errorMessage}}</p>
-    <p *ngIf='noFlightsAvailable == true'>There is no available flight. Try another search</p>
+<div class="search-card-wide mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Search for a flight</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <i class="material-icons">flight_takeoff</i>
+    <select class="search-input" title="departure" [ngModel]='city_departure'
+            (ngModelChange)="onChangeCityDeparture($event)">
+      <option *ngFor='let city of cities' [ngValue]="city">{{city.name}}</option>
+    </select>
+    <br>
+    <i class="material-icons">flight_land</i>
+    <select class="search-input" title="destination" [ngModel]='city_destination'
+            (ngModelChange)="onChangeCityDestination($event)">
+      <option *ngFor="let city of citiesDestination" [ngValue]="city">{{city.name}}</option>
+    </select>
+    <br>
+    <i class="material-icons">access_time</i>
+    <input class="search-input" title="date" type="date" name="Date" [ngModel]='flight_date' [min]='minDate'
+           (input)="onChangeDate($event.target.value)">
+    <br>
+    <i class="material-icons">event_seat</i>
+    <select class="search-input" title="class" [ngModel]='flight_class' (ngModelChange)="onChangeClass($event)">
+      <option value='economy'>Economy class</option>
+      <option value='business'>Business class</option>
+      <option value='first'>First class</option>
+    </select>
+    <br>
+    <i class="material-icons">people</i>
+    <input class="search-input" title="seats" type="number" name="nr_of_passengers"
+           (input)="onChangeSeats($event.target.value)">
+    <br>
+    <br>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-center"
+            [disabled]='city_departure == null || city_destination == null'
+            (click)="searchFlight()">
+      <i class="material-icons">search</i> Search
+    </button>
   </div>
 </div>
+
+<p *ngIf='errorMessage != null'>{{errorMessage}}</p>
+<p class="text-center" *ngIf='flightsList && flightsList.length === 0'>There are no available flights</p>
+
+<table *ngIf='flightsList && flightsList.length !== 0' class="mdl-data-table all-flights">
+  <thead>
+  <tr>
+    <th> Flight ID</th>
+    <th> Departure City</th>
+    <th> Destination City</th>
+    <th> Departure time</th>
+    <th> Arrival time</th>
+    <th> Price</th>
+    <th> Remaining seats</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor='let flight of flightsList'>
+    <td>{{ flight.id }}</td>
+    <td>{{ flight.DepartureCity.name}}</td>
+    <td>{{ flight.DestinationCity.name}}</td>
+    <td>{{ flight.departure_time | date: 'dd MMM yyyy hh:mm'}}</td>
+    <td>{{ flight.arrival_time | date: 'dd MMM yyyy hh:mm'}}</td>
+    <td>{{ flight.price}} LEI</td>
+    <td>{{ flight.remaining_seats}}</td>
+    <td>
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+        [routerLink]="['/book/flight', flight.id]">
+        Book
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
 
 

@@ -1,22 +1,41 @@
-<div>
-  <nav >
-    <div >
-      <a>{{title}}</a>
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a [routerLink]="['search']">Search Flight</a></li>
-        <li><a [routerLink]="['showAll']">Check Next Flights</a></li>
-        <li><a [routerLink]="['more-details']">Additional information</a></li>
-        <li><a [routerLink]="['about']">About</a></li>
-        <!--astea sa fie in partea dreapta-->
-        <li *ngIf="state.isLoggedIn()"><a href=" " [routerLink]="['myTickets']">My Tickets</a></li>
-        <li *ngIf="!state.isLoggedIn()"><a href=" " [routerLink]="['login']">Login</a></li>
-        <li *ngIf="state.isLoggedIn()">{{userName}}</li>
-        <li *ngIf="state.isLoggedIn()"><a href="" (click)="logout()">Logout</a></li>
-      </ul>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title">AIRclique</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation">
+        <a [routerLink]="['']" class="mdl-navigation__link">
+          <i class="material-icons">home</i>
+        </a>
+        <a [routerLink]="['about']" class="mdl-navigation__link">
+          About
+        </a>
+        <a [routerLink]="['more-details']" class="mdl-navigation__link">
+          FAQ
+        </a>
+        <a [routerLink]="['search']" class="mdl-navigation__link">
+          <i class="material-icons">search</i> Search Flight</a>
+        <a [routerLink]="['showAll']" class="mdl-navigation__link">
+          <i class="material-icons">flight_takeoff</i> Upcoming Flights
+        </a>
+
+        <a [routerLink]="['login']" *ngIf="!state.isLoggedIn()" class="mdl-navigation__link">Login</a>
+        <a [routerLink]="['myTickets']" *ngIf="state.isLoggedIn()" class="mdl-navigation__link">My Tickets</a>
+        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link"><strong><i class="material-icons">perm_identity</i>{{userName}}</strong></a>
+        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link" (click)="logout()">
+          <i class="material-icons">exit_to_app</i>
+        </a>
+      </nav>
     </div>
-  </nav>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
+  </header>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>
+
+
+
