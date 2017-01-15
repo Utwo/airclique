@@ -15,7 +15,7 @@
         <a [routerLink]="['login']" *ngIf="!state.isLoggedIn()" class="mdl-navigation__link">Login</a>
         <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link"><strong>{{userName}}</strong></a>
         <a [routerLink]="['myTickets']" *ngIf="state.isLoggedIn()" class="mdl-navigation__link">My Tickets</a>
-        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link" (click)="logout()">Logout</a>
+        <a *ngIf="state.isLoggedIn()" class="mdl-navigation__link" (click)="logout()"><i class="material-icons">exit_to_app</i></a>
       </nav>
     </div>
   </header>
