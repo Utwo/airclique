@@ -1,2 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/material-design-lite/material.min.css';
+
+.city-card-wide.mdl-card {
+  width: 100%;
+  display: inline-block;
+}
+.city-card-wide > .mdl-card__title.card-paris {
+  color: #fff;
+  height: 200px;
+  background: url('./assets/images/paris.jpg') center / cover;
+}
+.city-card-wide > .mdl-card__title.card-berlin {
+  color: #fff;
+  height: 200px;
+  background: url('./assets/images/berlin.jpg') center / cover;
+}
+.city-card-wide > .mdl-card__title.card-rome {
+  color: #fff;
+  height: 200px;
+  background: url('./assets/images/rome.jpg') center / cover;
+}
+.city-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.page-header{
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+  text-transform: uppercase;
+  color: #757575;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}

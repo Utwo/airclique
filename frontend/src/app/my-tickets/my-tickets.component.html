@@ -1,28 +1,29 @@
-<div>
-  <h3> My tickets: </h3>
-
-  <table>
-    <thead>
-    <tr>
-      <th> Flight ID</th>
-      <th> Nr of tickets</th>
-      <th> Class</th>
-      <th> Departure Time </th>
-      <th> Arrival Time</th>
-      <th> Departure City</th>
-      <th> Destination City</th>
-    </tr>
-    </thead>
-    <tbody *ngIf='flights && flights.length'>
-    <tr *ngFor='let flight of flights'>
-      <td>{{ flight.id }}</td>
-      <td>{{ flight._pivot_seats }}</td>
-      <td>{{ flight.class }}</td>
-      <td>{{ flight.departure_time | date: 'hh:mm dd MMM'}}</td>
-      <td>{{ flight.arrival_time | date: 'hh:mm dd MMM' }}</td>
-      <td>{{ flight.DepartureCity.name }}</td>
-      <td>{{ flight.DestinationCity.name }}</td>
-    </tr>
-    </tbody>
-  </table>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">
+    <h3 class="page-header">My tickets</h3>
+    <table class="mdl-data-table">
+      <thead>
+      <tr>
+        <th> Flight ID</th>
+        <th> Departure City</th>
+        <th> Destination City</th>
+        <th> Departure Time</th>
+        <th> Arrival Time</th>
+        <th> Class</th>
+        <th> Seats</th>
+      </tr>
+      </thead>
+      <tbody *ngIf='flights && flights.length'>
+      <tr *ngFor='let flight of flights'>
+        <td>{{ flight.id }}</td>
+        <td>{{ flight.DepartureCity.name }}</td>
+        <td>{{ flight.DestinationCity.name }}</td>
+        <td>{{ flight.departure_time | date: 'dd MMM yyyy hh:mm'}}</td>
+        <td>{{ flight.arrival_time | date: 'dd MMM yyyy hh:mm' }}</td>
+        <td>{{ flight.class }}</td>
+        <td>{{ flight._pivot_seats }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
