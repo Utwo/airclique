@@ -14,9 +14,15 @@ export class SearchService {
     let url = 'flights?';
     url = url + 'city_departure_id=' + cityDepartureId + '&';
     url = url + 'city_destination_id=' + cityDestinationId + '&';
-    url = url + 'departure_time=' + departureTime + '&';
-    url = url + 'seats=' + seatsNumber + '&';
-    url = url + 'class=' + flightClass;
+    if(departureTime != null) {
+      url = url + 'departure_time=' + departureTime + '&';
+    }
+    if(seatsNumber != null) {
+      url = url + 'seats=' + seatsNumber + '&';
+    }
+    if(flightClass != null) {
+      url = url + 'class=' + flightClass;
+    }
 
     return this.http.get(environment.URL_API + url, {headers: headers})
         .map(res => res.json())

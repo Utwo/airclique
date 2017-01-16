@@ -19,14 +19,11 @@ export class SearchComponent implements OnInit {
 
   city_departure: ICity = null;
   city_destination: ICity  = null;
-  flight_date: Date;
-  minDate : Date = new Date('dd/MM/yyyy');
-  flight_class: string;
-  nrOfSeats: number = 1;
+  flight_date: Date = null;
+  flight_class: string = null;
+  nrOfSeats: number = null;
 
   constructor(private searchService: SearchService, private http: Http) {
-    this.flight_date = new Date();
-    this.minDate = new Date('dd/MM/yyyy');
   }
 
   ngOnInit() {
