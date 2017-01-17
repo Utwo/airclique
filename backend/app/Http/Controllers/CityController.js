@@ -8,19 +8,6 @@ class CityController {
     const cities =  yield City.all()
     response.json(cities)
   }
-
-  * store(request, response) {
-    //
-  }
-
-  * update(request, response) {
-    //
-  }
-
-  * destroy(request, response) {
-    //
-  }
-
 }
 
 module.exports = CityController

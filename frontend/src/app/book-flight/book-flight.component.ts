@@ -8,7 +8,6 @@ import {StateService} from '../shared/state.service';
 @Component({
   selector: 'app-book-flight',
   templateUrl: './book-flight.component.html',
-  styleUrls: ['./book-flight.component.css']
 })
 
 export class BookFlightComponent implements OnInit {

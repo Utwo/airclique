@@ -18,8 +18,8 @@
       <tbody *ngIf='flights && flights.length'>
       <tr *ngFor='let flight of flights'>
         <td>{{ flight.id }}</td>
-        <td>{{ flight.DepartureCity.name }}</td>
-        <td>{{ flight.DestinationCity.name }}</td>
+        <td>{{ flight.DepartureCity.name }} ({{ flight.DepartureCity.code }})</td>
+        <td>{{ flight.DestinationCity.name }} ({{ flight.DestinationCity.code }})</td>
         <td>{{ flight.departure_time | date: 'dd MMM yyyy hh:mm'}}</td>
         <td>{{ flight.arrival_time | date: 'dd MMM yyyy hh:mm'}}</td>
         <td>
